@@ -1,0 +1,10 @@
+{
+    "name": "iceiceice0716/project-report",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "PR\\": "src/"
+        }
+    }
+}
