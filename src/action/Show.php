@@ -201,13 +201,14 @@ class Show extends Action
 
         // 任务人天
         $taskCost = array_map(function ($tn) use ($personal) {
-            return intval(array_reduce($personal, function ($r, $v) use ($tn) {
+            return doubleval(array_reduce($personal, function ($r, $v) use ($tn) {
                 if ($v[6] == $tn) {
-                    $r = intval($r) + intval($v[8]);
+                    $r = doubleval($r) + doubleval($v[8]);
                 }
                 return $r;
             }));
         }, $taskNames);
+
         $this->assign('taskCost', $taskCost);
 
         // 任务完成度

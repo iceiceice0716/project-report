@@ -174,6 +174,9 @@ Tpl::inc('inc/echart.php');
 
             },
             loadTaskChart() {
+                let data=<?=json_encode($taskCost)?>;
+                console.info(data)
+
 
                 let option = {
                     title: {
@@ -193,9 +196,24 @@ Tpl::inc('inc/echart.php');
                         bottom: '3%',
                         containLabel: true
                     },
-                    xAxis: {
-                        type: 'value',
-                    },
+                    xAxis:
+                    [
+                        {
+                          type: 'value',
+                          max:7,
+                          interval: 0.5,
+                           axisLabel: {
+                              formatter: '{value} 人天'
+                           }
+                        },
+                        {
+                            type:'value',
+                             max:100,
+                             axisLabel: {
+                               formatter: '{value} %'
+                             }
+                        }
+                      ],
                     yAxis: {
                         type: 'category',
                         // 项目名称
@@ -205,12 +223,13 @@ Tpl::inc('inc/echart.php');
                         {
                             name: '耗费人天',
                             type: 'bar',
-
+                            xAxisIndex: 0,
                             // 各项目的耗人天
                             data: <?=json_encode($taskCost)?>
                         },
                         {
                             name: '进度',
+                            xAxisIndex: 1,
                             type: 'bar',
                             // 各项目的完成度
                             data: <?=json_encode($taskPercent)?>
@@ -224,7 +243,10 @@ Tpl::inc('inc/echart.php');
             },
 
             loadPeopleChart() {
-
+                let links= <?=json_encode($link, JSON_UNESCAPED_UNICODE)?>;
+                let nodes=<?=json_encode($nodes, JSON_UNESCAPED_UNICODE)?>;
+                console.info(links)
+                console.info(nodes)
                 let option = {
                     title: {
                         text: '项目人员关系图'
@@ -249,7 +271,7 @@ Tpl::inc('inc/echart.php');
                             roam: true,
                             label: {
                                 show: true,
-                                color: '#fff',
+                                color: '#000',
                                 border: 'inherit'
                             },
                             edgeSymbol: ['circle', 'arrow'],
@@ -257,9 +279,9 @@ Tpl::inc('inc/echart.php');
                             edgeLabel: {
                                 fontSize: 20
                             },
-                            data: <?=json_encode($nodes, JSON_UNESCAPED_UNICODE)?>,
+                            data: nodes,
                             // links: [],
-                            links: <?=json_encode($link, JSON_UNESCAPED_UNICODE)?>,
+                            links:links,
                             lineStyle: {
                                 opacity: 0.9,
                                 width: 2,
